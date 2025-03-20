@@ -1,3 +1,4 @@
+#HACK EARTH DIVISIBLITY PROGRAM
 a=int(input().strip())
 while True:
     s=list(map(int,input().split()))
@@ -17,4 +18,19 @@ while True:
             print("Yes")
         else:
             print("No")
+
+       #(OR)
+
+ #to mange the time complexity
+a = int(input().strip())
+s = list(map(int, input().split()))
+
+if len(s) != a:
+    print("Enter the correct number of items:")
+else:
+    # Check if any reversed number ends with 0
+    if any(str(num)[::-1][-1] == '0' for num in s):
+        print("Yes")
+    else:
+        print("No")
 

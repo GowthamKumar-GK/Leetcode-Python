@@ -1,0 +1,8 @@
+#!bin/bash/
+num=10
+if [ $num -lt 5 ]; then
+	echo "greater"
+else
+	echo "lesser"
+fi
+

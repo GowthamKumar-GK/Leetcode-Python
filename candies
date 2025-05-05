@@ -1,0 +1,22 @@
+candies = list(map(int, input("Enter candies separated by spaces: ").split()))
+extraCandies = int(input("Enter extra candies: "))
+
+max_candies = max(candies)
+result = []
+
+for candy in candies:
+    if candy + extraCandies >= max_candies:
+        result.append(True)
+    else:
+        result.append(False)
+
+print(result)
+
+
+"""class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        max_candies = max(candies)
+        result = []
+        for candy in candies:
+            result.append(candy + extraCandies >= max_candies)
+        return result"""

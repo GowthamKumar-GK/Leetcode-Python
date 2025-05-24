@@ -4,7 +4,7 @@ s=num1+num2
 print(s)
 if len(s)%2==0:
     r=len(s)//2
-    print(s[r]+s[r-1])
+    print((s[r]+s[r-1])/2)
 
 else:
     r=len(s)//2

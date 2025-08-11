@@ -1,0 +1,38 @@
+
+
+5) Create TARGET_CUSTOMER with GRADE Column
+
+-- Create the target table with grade based on salary ranges
+CREATE TABLE TARGET_CUSTOMER AS
+SELECT 
+    ID,
+    NAME,
+    CASE 
+        WHEN SALARY BETWEEN 0 AND 14999.99 THEN 'C'
+        WHEN SALARY BETWEEN 15000 AND 24999.99 THEN 'B'
+        WHEN SALARY >= 25000 THEN 'A'
+    END AS GRADE
+FROM SOURCE_CUSTOMER;
+
+-- Display the results
+SELECT * FROM TARGET_CUSTOMER;
+
+
+6)Display Full Name with Proper Spacing
+
+SELECT 
+    CASE
+        WHEN (MIDDLE_NAME IS NULL OR MIDDLE_NAME = ' ') AND 
+             (LAST_NAME IS NULL OR LAST_NAME = ' ') THEN FIRST_NAME
+        WHEN (LAST_NAME IS NULL OR LAST_NAME = ' ') THEN FIRST_NAME || ' ' || MIDDLE_NAME
+        WHEN (MIDDLE_NAME IS NULL OR MIDDLE_NAME = ' ') THEN FIRST_NAME || ' ' || LAST_NAME
+        ELSE FIRST_NAME || ' ' || MIDDLE_NAME || ' ' || LAST_NAME
+    END AS Full_Name
+FROM YourTableName;
+
+
+
+
+
+
+

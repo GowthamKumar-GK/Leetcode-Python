@@ -1,0 +1,3 @@
+bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+
+run cmd as adminstrator

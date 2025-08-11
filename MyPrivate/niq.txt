@@ -1,0 +1,250 @@
+%	The MIT License (MIT)
+%
+%	Copyright (c) 2021 Jitin Nair
+%
+%	Permission is hereby granted, free of charge, to any person obtaining a copy
+%	of this software and associated documentation files (the "Software"), to deal
+%	in the Software without restriction, including without limitation the rights
+%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%	copies of the Software, and to permit persons to whom the Software is
+%	furnished to do so, subject to the following conditions:
+%	
+%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+%	THE SOFTWARE.
+%	
+%
+%-----------------------------------------------------------------------------------------------------------------------------------------------%
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT DEFINITION
+%----------------------------------------------------------------------------------------
+
+% article class because we want to fully customize the page and not use a cv template
+\documentclass[a4paper,12pt]{article}
+
+%----------------------------------------------------------------------------------------
+%	FONT
+%----------------------------------------------------------------------------------------
+
+% % fontspec allows you to use TTF/OTF fonts directly
+% \usepackage{fontspec}
+% \defaultfontfeatures{Ligatures=TeX}
+
+% % modified for ShareLaTeX use
+% \setmainfont[
+% SmallCapsFont = Fontin-SmallCaps.otf,
+% BoldFont = Fontin-Bold.otf,
+% ItalicFont = Fontin-Italic.otf
+% ]
+% {Fontin.otf}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES
+%----------------------------------------------------------------------------------------
+\usepackage{url}
+\usepackage{parskip} 	
+
+%other packages for formatting
+\RequirePackage{color}
+\RequirePackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[scale=0.9]{geometry}
+
+%tabularx environment
+\usepackage{tabularx}
+
+%for lists within experience section
+\usepackage{enumitem}
+
+% centered version of 'X' col. type
+\newcolumntype{C}{>{\centering\arraybackslash}X} 
+
+%to prevent spillover of tabular into next pages
+\usepackage{supertabular}
+\usepackage{tabularx}
+\newlength{\fullcollw}
+\setlength{\fullcollw}{0.47\textwidth}
+
+%custom \section
+\usepackage{titlesec}				
+\usepackage{multicol}
+\usepackage{multirow}
+
+%CV Sections inspired by: 
+%http://stefano.italians.nl/archives/26
+\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{10pt}{10pt}
+
+%for publications
+\usepackage[style=authoryear,sorting=ynt, maxbibnames=2]{biblatex}
+
+%Setup hyperref package, and colours for links
+\usepackage[unicode, draft=false]{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
+\addbibresource{citations.bib}
+\setlength\bibitemsep{1em}
+
+%for social icons
+\usepackage{fontawesome5}
+
+%debug page outer frames
+%\usepackage{showframe}
+
+%----------------------------------------------------------------------------------------
+%	BEGIN DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+% non-numbered pages
+\pagestyle{empty} 
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+% \begin{tabularx}{\linewidth}{ @{}X X@{} }
+% \huge{Your Name}\vspace{2pt} & \hfill \emoji{incoming-envelope} email@email.com \\
+% \raisebox{-0.05\height}\faGithub\ username \ | \
+% \raisebox{-0.00\height}\faLinkedin\ username \ | \ \raisebox{-0.05\height}\faGlobe \ mysite.com  & \hfill \emoji{calling} number
+% \end{tabularx}
+
+\begin{tabularx}{\linewidth}{@{} C @{}}
+\Huge{GOWTHAM KUMAR G} \\[13.5pt]
+% \href{https://github.com/username}{\raisebox{-0.05\height}\faGithub\ username} \ $|$ \ 
+% \href{https://linkedin.com/in/username}{\raisebox{-0.05\height}\faLinkedin\ username} \ $|$ \ 
+% \href{https://mysite.com}{\raisebox{-0.05\height}\faGlobe \ mysite.com} \ $|$ \ 
+\href{mailto:gkgowtham005@gmail.com}{\raisebox{-0.03\height}\faEnvelope \ gkgowtham005@gmail.com} \ $|$ \ 
+\href{tel:+91 9361848744}{\raisebox{-0.05\height}\faMobile \ +91 9361848744} 
+ \textbar\ \textcolor{blue}\faLinkedin\ \href{https://www.linkedin.com/in/Gowtham Kumar G} {linkedin} \textbar\ \textcolor{blue} \faGithub\ \href{https://github.com/GowthamKumar-GK} {Github}
+
+\end{tabularx}
+
+%----------------------------------------------------------------------------------------
+% EXPERIENCE SECTIONS
+%----------------------------------------------------------------------------------------
+
+%Interests/ Keywords/ Summary
+\section{Summary}
+ Aspiring tech enthusiast seeking a dynamic role to leverage innovative problem-solving skills and
+ contribute to cutting-edge advancements in the ever-evolving technology landscape.
+ % \href{https://github.com/jitinnair1/autoCV}{click here}.
+
+%Experience
+% \section{Work Experience}
+
+% \begin{tabularx}{\linewidth}{ @{}l r@{} }
+% \textbf{Designation} & \hfill Jan 2021 - present \\[3.75pt]
+% \multicolumn{2}{@{}X@{}}{long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width}  \\
+% \end{tabularx}
+
+% \begin{tabularx}{\linewidth}{ @{}l r@{} }
+% \textbf{Designation} & \hfill Mar 2019 - Jan 2021 \\[3.75pt]
+% \multicolumn{2}{@{}X@{}}{
+% \begin{minipage}[t]{\linewidth}
+%     \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt]
+%         \item[--] long long line of blah blah that will wrap when the table fills the column width
+%         \item[--] again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah. again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah
+%     \end{itemize}
+%     \end{minipage}
+% }
+% \end{tabularx}
+
+%Projects
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\section{Education}
+
+{\bf Bachelor of Technology in Information Technology} \hfill {2020 - 2024 }
+\\ 
+{Nandha Engineering College ,Erode.}\\
+{CGPA: 8.4}
+
+{\textbf{Higher Secondary Certificate}}  \hfill 2019 - 2020\\
+Government Higher Secondary School, Mughasi Anumanpalli, Erode.\\
+\textbf{Percentage:} 62 \%
+ 
+{\textbf{Secondary School Leaving Certificate}}  \hfill 2017 - 2018\\
+Government Higher Secondary School, Mughasi Anumanpalli, Erode.\\
+\textbf{Percentage:} 84 \%
+
+%Minor in Linguistics \smallskip \\
+%Member of Eta Kappa Nu \\
+%Member of Upsilon Pi Epsilon \\
+
+\section{Projects}
+
+% \begin{tabularx}{\linewidth}{ @{}l r@{} }
+\textbf{Instagram Clone}
+\begin{itemize}
+    \item This Django-based project lets users create profiles, share posts with captions and interact through likes and comments.
+    \item Users can follow or unfollow others, customizing their feed with posts from followed profiles and each user has a profile page showing their posts, followers, and following count.
+    \item Django models efficiently manage users, posts, likes, comments, and relationships.
+\end{itemize}
+\textbf{Smart Recipe Suggestion System}
+\begin{itemize}
+    \item Developed a Smart Recipe Suggestion System using Django for the backend and an SQL database to store and manage recipe data. 
+    \item Enabled users to input available ingredients and receive recipe suggestions through SQL queries that match those ingredients, helping them find meals they can prepare at home.
+ %    \item  It features a user-friendly frontend with HTML forms for data input and recipe suggestions
+ % display.
+\end{itemize}
+
+
+
+% \end{tabularx
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	PUBLICATIONS
+%----------------------------------------------------------------------------------------
+
+
+% Skills section
+\section{Skills}
+\begin{multicols}{2}
+\begin{itemize}
+  \item Python
+  \item Excel
+  \item SQL
+  \item Django
+  \item Analytical Thinking
+  \item Team Worker
+  \item Inter Personal skills
+  \item Self-Motivation
+\end{itemize}
+\end{multicols}
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	SKILLS
+%----------------------------------------------------------------------------------------
+\section{Achivements}
+% \begin{tabularx}{\linewidth}{@{}l X@{}}
+\begin{itemize}
+    \item  Certified Python Developer accredited by Udemy, demonstrating expertise in Python
+ programming
+\end{itemize}
+
+\vfill
+
+
+\end{document}

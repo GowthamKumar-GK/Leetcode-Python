@@ -1,0 +1,35 @@
+ STEP 3: Add Recipes with Instructions
+You can do this in the Django shell:
+
+bash
+
+python manage.py shell
+
+
+
+Then paste:
+
+python
+Copy
+Edit
+from recipe_app.models import Recipe
+
+Recipe.objects.create(
+    name="Tomato Rice",
+    ingredients="rice, tomato, salt, oil",
+    instructions="1. Cook rice. 2. In a pan, sauté tomatoes with oil and salt. 3. Mix rice with the tomato mixture and serve hot."
+)
+
+Recipe.objects.create(
+    name="Egg Fried Rice",
+    ingredients="rice, egg, salt, pepper, oil",
+    instructions="1. Scramble eggs in oil. 2. Add cooked rice, salt, and pepper. 3. Mix and fry for 2-3 mins."
+)
+
+Recipe.objects.create(
+    name="Curd Rice",
+    ingredients="rice, curd, salt, mustard",
+    instructions="1. Mix cooked rice with curd and salt. 2. Temper mustard seeds and mix. Serve chilled."
+)
+Then type exit() to quit the shell.
+

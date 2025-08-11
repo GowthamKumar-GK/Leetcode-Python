@@ -1,0 +1,338 @@
+
+
+5) Create TARGET_CUSTOMER with GRADE Column
+
+-- Create the target table with grade based on salary ranges
+CREATE TABLE TARGET_CUSTOMER AS
+SELECT 
+    ID,
+    NAME,
+    CASE 
+        WHEN SALARY BETWEEN 0 AND 14999.99 THEN 'C'
+        WHEN SALARY BETWEEN 15000 AND 24999.99 THEN 'B'
+        WHEN SALARY >= 25000 THEN 'A'
+    END AS GRADE
+FROM SOURCE_CUSTOMER;
+
+-- Display the results
+SELECT * FROM TARGET_CUSTOMER;
+
+
+6)Display Full Name with Proper Spacing
+
+SELECT 
+    CASE
+        WHEN (MIDDLE_NAME IS NULL OR MIDDLE_NAME = ' ') AND 
+             (LAST_NAME IS NULL OR LAST_NAME = ' ') THEN FIRST_NAME
+        WHEN (LAST_NAME IS NULL OR LAST_NAME = ' ') THEN FIRST_NAME || ' ' || MIDDLE_NAME
+        WHEN (MIDDLE_NAME IS NULL OR MIDDLE_NAME = ' ') THEN FIRST_NAME || ' ' || LAST_NAME
+        ELSE FIRST_NAME || ' ' || MIDDLE_NAME || ' ' || LAST_NAME
+    END AS Full_Name
+FROM YourTableName;
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+=-===================================================================================================
+
+# Oracle SQL*Plus Solutions
+
+## 1) DBMS & RDBMS
+- **DBMS (Database Management System)**: Software to store and manage data (e.g., hierarchical, network DBs)
+- **RDBMS (Relational DBMS)**: DBMS based on relational model with tables, relations, and SQL (e.g., Oracle, MySQL)
+
+## 2) Constraints with Examples
+Constraints enforce data integrity rules:
+```sql
+-- PRIMARY KEY (unique + not null)
+CREATE TABLE Employees (
+    emp_id NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50)
+);
+
+-- FOREIGN KEY (references another table)
+CREATE TABLE Orders (
+    order_id NUMBER PRIMARY KEY,
+    emp_id NUMBER REFERENCES Employees(emp_id)
+);
+```
+
+## 3) Set Operators with Examples
+```sql
+-- UNION (distinct rows from both)
+SELECT emp_name FROM emp_chennai
+UNION
+SELECT emp_name FROM emp_hyderabad;
+
+-- UNION ALL (all rows including duplicates)
+SELECT emp_name FROM emp_chennai
+UNION ALL
+SELECT emp_name FROM emp_hyderabad;
+
+-- INTERSECT (common rows)
+SELECT emp_id FROM managers
+INTERSECT 
+SELECT emp_id FROM engineers;
+
+-- MINUS (in first not in second)
+SELECT emp_id FROM all_emps
+MINUS
+SELECT emp_id FROM managers;
+```
+
+## 4) Table Creation & Update
+```sql
+-- Table creation
+CREATE TABLE employee (
+    emp_id NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50),
+    age NUMBER,
+    job VARCHAR2(50),
+    emp_salary NUMBER,
+    emp_location VARCHAR2(50)
+);
+
+-- Insert data
+INSERT INTO employee VALUES (1, 'Ajun', 23, 'MANAGER', 40000, 'CHENNAI');
+INSERT INTO employee VALUES (2, 'Naman', 30, 'ANALYST', 35700, 'CHENNAI');
+
+-- Update job
+UPDATE employee
+SET job = 'PRODUCT_OWNER'
+WHERE job = 'ANALYST';
+```
+
+## 5) Drop, Truncate, Delete Differences
+```sql
+-- DELETE (removes rows, can rollback)
+DELETE FROM employee;
+
+-- TRUNCATE (removes all rows fast, no rollback)
+TRUNCATE TABLE employee;
+
+-- DROP (removes entire table structure)
+DROP TABLE employee;
+```
+**Differences**:
+- DELETE is DML (logged), TRUNCATE is DDL (faster)
+- DROP removes table completely
+- DELETE can have WHERE clause
+
+## 6) GROUP BY Clause
+Groups rows with same values for aggregate functions:
+```sql
+SELECT job, AVG(salary)
+FROM employee
+GROUP BY job;
+```
+
+## 7) True/False with Justification
+1. **FALSE**: GROUP BY groups data, WHERE/HAVING filters
+2. **TRUE**: Unique key allows NULLs (unlike PK which prohibits NULLs)
+
+## 8) Subquery vs Correlated Subquery
+- **Subquery**: Independent inner query
+```sql
+SELECT name FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
+```
+- **Correlated Subquery**: References outer query
+```sql
+SELECT e.name FROM employees e
+WHERE salary > (SELECT AVG(salary) FROM employees WHERE dept = e.dept);
+```
+
+## 9) JOIN Differences
+- **INNER JOIN**: Only matching rows
+- **LEFT JOIN**: All left table + matching right
+- **RIGHT JOIN**: All right table + matching left
+- **FULL OUTER JOIN**: All rows from both tables
+
+## 10) NULL Handling Methods
+```sql
+-- NVL (replace NULL)
+SELECT NVL(commission, 0) FROM employees;
+
+-- NVL2 (if-not-null-else)
+SELECT NVL2(commission, 'Has commission', 'No commission') FROM employees;
+
+-- COALESCE (first non-NULL)
+SELECT COALESCE(middle_name, last_name, 'No name') FROM employees;
+```
+
+## 11) Complex Queries
+```sql
+-- a) Unmarried Chennai employees >30K
+SELECT COUNT(*) 
+FROM employee 
+WHERE emp_salary > 30000 
+AND marital_status = 'UN_MARRIED' 
+AND emp_location = 'CHENNAI';
+
+-- b) Locations with >60K total salary
+SELECT emp_location, SUM(emp_salary) AS total_salary
+FROM employee
+GROUP BY emp_location
+HAVING SUM(emp_salary) > 60000;
+```
+
+## 12) Comparison & Range Operators
+Comparison: `=, !=, >, <, >=, <=`  
+Range: `BETWEEN x AND y`, `NOT BETWEEN x AND y`
+
+## 13) JOIN Examples
+```sql
+-- INNER JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id;
+
+-- LEFT JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id;
+
+-- RIGHT JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+RIGHT JOIN departments d ON e.dept_id = d.dept_id;
+
+-- FULL OUTER JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.dept_id = d.dept_id;
+```
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+......................................................................................................
+
+# Oracle SQL*Plus Solutions
+
+## Question 12: Aggregate Functions
+```sql
+SELECT 
+    COUNT(*) AS Total_Employees,
+    SUM(EMP_SALARY) AS Total_Salary,
+    AVG(EMP_SALARY) AS Avg_Salary,
+    MIN(EMP_SALARY) AS Min_Salary,
+    MAX(EMP_SALARY) AS Max_Salary,
+    MEDIAN(EMP_SALARY) AS Median_Salary,
+    STDDEV(EMP_SALARY) AS Salary_StdDev,
+    VARIANCE(EMP_SALARY) AS Salary_Variance
+FROM EMPLOYEE;
+```
+
+## Question 13: Set Operators
+```sql
+-- Create sample tables
+CREATE TABLE T1 (ID NUMBER);
+CREATE TABLE T2 (ID NUMBER);
+
+-- Insert data
+INSERT INTO T1 VALUES (1); INSERT INTO T1 VALUES (2); 
+INSERT INTO T1 VALUES (4); INSERT INTO T1 VALUES (3); 
+INSERT INTO T1 VALUES (4); INSERT INTO T1 VALUES (6);
+
+INSERT INTO T2 VALUES (1); INSERT INTO T2 VALUES (4); 
+INSERT INTO T2 VALUES (5); INSERT INTO T2 VALUES (6); 
+INSERT INTO T2 VALUES (2); INSERT INTO T2 VALUES (7);
+
+-- Set operators
+SELECT ID FROM T1 UNION SELECT ID FROM T2;          -- All distinct values
+SELECT ID FROM T1 UNION ALL SELECT ID FROM T2;     -- All values with duplicates
+SELECT ID FROM T1 INTERSECT SELECT ID FROM T2;     -- Common values
+SELECT ID FROM T1 MINUS SELECT ID FROM T2;         -- In T1 but not in T2
+```
+
+## Question 14: Extract Year from Date
+```sql
+SELECT EXTRACT(YEAR FROM TO_DATE('9999-12-31', 'YYYY-MM-DD')) AS Year FROM DUAL;
+-- OR
+SELECT TO_CHAR(TO_DATE('9999-12-31', 'YYYY-MM-DD'), 'YYYY') AS Year FROM DUAL;
+```
+
+## Question 15: Concatenate First and Last Name
+```sql
+SELECT 
+    First_Name, 
+    Last_Name, 
+    First_Name || ' ' || Last_Name AS Full_Name 
+FROM EMPLOYEE;
+```
+
+## Question 16: Extract First Name from Full Name
+```sql
+SELECT 
+    Full_Name,
+    SUBSTR(Full_Name, 1, INSTR(Full_Name, ' ')-1) AS First_Name 
+FROM EMPLOYEE;
+```
+
+## Question 17: Multi-Row Functions
+**Definition:** Functions that operate on sets of rows to return single values (aggregate functions) or multiple values (analytic functions).
+
+**Types:**
+1. Aggregate functions (COUNT, SUM, AVG, etc.)
+2. Analytic functions (ROW_NUMBER, RANK, LEAD, LAG, etc.)
+3. GROUP BY clause functions
+4. Window functions
+
+## Question 18: Extract Domain from Email
+```sql
+SELECT 
+    SUBSTR(
+        'abc@sjp.co.uk', 
+        INSTR('abc@sjp.co.uk', '@')+1
+    ) AS Domain 
+FROM DUAL;
+```
+
+## Question 19: Delete, Truncate, Drop Syntax
+```sql
+-- DELETE (DML - can rollback)
+DELETE FROM table_name WHERE condition;
+
+-- TRUNCATE (DDL - faster, no rollback)
+TRUNCATE TABLE table_name;
+
+-- DROP (DDL - removes table completely)
+DROP TABLE table_name;
+```
+
+## Question 20: Subqueries
+**Subquery:** A query nested inside another query.
+```sql
+SELECT emp_name FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
+```
+
+**Correlated Subquery:** References columns from the outer query.
+```sql
+SELECT e.emp_name FROM employees e
+WHERE salary > (SELECT AVG(salary) FROM employees WHERE dept = e.dept);
+```
+
+**Example:**
+```sql
+-- Employees earning more than their department average
+SELECT e.emp_name, e.salary, e.dept
+FROM employees e
+WHERE e.salary > (
+    SELECT AVG(salary) 
+    FROM employees 
+    WHERE dept = e.dept
+);
+```
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+

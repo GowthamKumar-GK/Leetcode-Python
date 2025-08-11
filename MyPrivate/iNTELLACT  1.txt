@@ -1,0 +1,167 @@
+# Oracle SQL*Plus Solutions
+
+## 1) DBMS & RDBMS
+- **DBMS (Database Management System)**: Software to store and manage data (e.g., hierarchical, network DBs)
+- **RDBMS (Relational DBMS)**: DBMS based on relational model with tables, relations, and SQL (e.g., Oracle, MySQL)
+
+## 2) Constraints with Examples
+Constraints enforce data integrity rules:
+```sql
+-- PRIMARY KEY (unique + not null)
+CREATE TABLE Employees (
+    emp_id NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50)
+);
+
+-- FOREIGN KEY (references another table)
+CREATE TABLE Orders (
+    order_id NUMBER PRIMARY KEY,
+    emp_id NUMBER REFERENCES Employees(emp_id)
+);
+```
+
+## 3) Set Operators with Examples
+```sql
+-- UNION (distinct rows from both)
+SELECT emp_name FROM emp_chennai
+UNION
+SELECT emp_name FROM emp_hyderabad;
+
+-- UNION ALL (all rows including duplicates)
+SELECT emp_name FROM emp_chennai
+UNION ALL
+SELECT emp_name FROM emp_hyderabad;
+
+-- INTERSECT (common rows)
+SELECT emp_id FROM managers
+INTERSECT 
+SELECT emp_id FROM engineers;
+
+-- MINUS (in first not in second)
+SELECT emp_id FROM all_emps
+MINUS
+SELECT emp_id FROM managers;
+```
+
+## 4) Table Creation & Update
+```sql
+-- Table creation
+CREATE TABLE employee (
+    emp_id NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50),
+    age NUMBER,
+    job VARCHAR2(50),
+    emp_salary NUMBER,
+    emp_location VARCHAR2(50)
+);
+
+-- Insert data
+INSERT INTO employee VALUES (1, 'Ajun', 23, 'MANAGER', 40000, 'CHENNAI');
+INSERT INTO employee VALUES (2, 'Naman', 30, 'ANALYST', 35700, 'CHENNAI');
+
+-- Update job
+UPDATE employee
+SET job = 'PRODUCT_OWNER'
+WHERE job = 'ANALYST';
+```
+
+## 5) Drop, Truncate, Delete Differences
+```sql
+-- DELETE (removes rows, can rollback)
+DELETE FROM employee;
+
+-- TRUNCATE (removes all rows fast, no rollback)
+TRUNCATE TABLE employee;
+
+-- DROP (removes entire table structure)
+DROP TABLE employee;
+```
+**Differences**:
+- DELETE is DML (logged), TRUNCATE is DDL (faster)
+- DROP removes table completely
+- DELETE can have WHERE clause
+
+## 6) GROUP BY Clause
+Groups rows with same values for aggregate functions:
+```sql
+SELECT job, AVG(salary)
+FROM employee
+GROUP BY job;
+```
+
+## 7) True/False with Justification
+1. **FALSE**: GROUP BY groups data, WHERE/HAVING filters
+2. **TRUE**: Unique key allows NULLs (unlike PK which prohibits NULLs)
+
+## 8) Subquery vs Correlated Subquery
+- **Subquery**: Independent inner query
+```sql
+SELECT name FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
+```
+- **Correlated Subquery**: References outer query
+```sql
+SELECT e.name FROM employees e
+WHERE salary > (SELECT AVG(salary) FROM employees WHERE dept = e.dept);
+```
+
+## 9) JOIN Differences
+- **INNER JOIN**: Only matching rows
+- **LEFT JOIN**: All left table + matching right
+- **RIGHT JOIN**: All right table + matching left
+- **FULL OUTER JOIN**: All rows from both tables
+
+## 10) NULL Handling Methods
+```sql
+-- NVL (replace NULL)
+SELECT NVL(commission, 0) FROM employees;
+
+-- NVL2 (if-not-null-else)
+SELECT NVL2(commission, 'Has commission', 'No commission') FROM employees;
+
+-- COALESCE (first non-NULL)
+SELECT COALESCE(middle_name, last_name, 'No name') FROM employees;
+```
+
+## 11) Complex Queries
+```sql
+-- a) Unmarried Chennai employees >30K
+SELECT COUNT(*) 
+FROM employee 
+WHERE emp_salary > 30000 
+AND marital_status = 'UN_MARRIED' 
+AND emp_location = 'CHENNAI';
+
+-- b) Locations with >60K total salary
+SELECT emp_location, SUM(emp_salary) AS total_salary
+FROM employee
+GROUP BY emp_location
+HAVING SUM(emp_salary) > 60000;
+```
+
+## 12) Comparison & Range Operators
+Comparison: `=, !=, >, <, >=, <=`  
+Range: `BETWEEN x AND y`, `NOT BETWEEN x AND y`
+
+## 13) JOIN Examples
+```sql
+-- INNER JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id;
+
+-- LEFT JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id;
+
+-- RIGHT JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+RIGHT JOIN departments d ON e.dept_id = d.dept_id;
+
+-- FULL OUTER JOIN
+SELECT e.emp_name, d.dept_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.dept_id = d.dept_id;
+```

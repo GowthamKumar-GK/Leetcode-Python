@@ -1,0 +1,122 @@
+%----------------------------------------------------------------------------------------
+%	DOCUMENT DEFINITION
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper,12pt]{article}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES
+%----------------------------------------------------------------------------------------
+\usepackage{url}
+\usepackage{parskip}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[scale=0.9]{geometry}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{supertabular}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[unicode, draft=false]{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
+\usepackage{fontawesome5}
+
+% custom section formatting
+\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{10pt}{10pt}
+
+% Centered X column type
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newlength{\fullcollw}
+\setlength{\fullcollw}{0.47\textwidth}
+
+%----------------------------------------------------------------------------------------
+%	BEGIN DOCUMENT
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\pagestyle{empty} 
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+\begin{tabularx}{\linewidth}{@{} C @{}}
+\Huge{GOWTHAM KUMAR G} \\[13.5pt]
+\href{mailto:gkgowtham005@gmail.com}{\raisebox{-0.03\height}\faEnvelope \ gkgowtham005@gmail.com} \ $|$ \ 
+\href{tel:+91 9361848744}{\raisebox{-0.05\height}\faMobile \ +91 9361848744} \ $|$ \
+\href{https://www.linkedin.com/in/gowtham-kumar-g}{\textcolor{linkcolour}{\faLinkedin \ LinkedIn}} \ $|$ \
+\href{https://github.com/GowthamKumar-GK}{\textcolor{linkcolour}{\faGithub \ GitHub}}
+\end{tabularx}
+
+%----------------------------------------------------------------------------------------
+%	CAREER OBJECTIVE
+%----------------------------------------------------------------------------------------
+
+\section{Career Objective}
+Aspiring tech enthusiast seeking a dynamic role to leverage innovative problem-solving skills and contribute to cutting-edge advancements in the ever-evolving technology landscape.
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\section{Education}
+
+{\bf Bachelor of Technology in Information Technology} \hfill {2020 -- 2024} \\
+Nandha Engineering College, Erode \\
+\textbf{CGPA:} 8.28
+
+\vspace{4pt}
+{\bf Higher Secondary Certificate (HSC)} \hfill {2019 -- 2020} \\
+Government Higher Secondary School, Mughasl Anumanpalli, Erode \\
+\textbf{Percentage:} 62\%
+
+\vspace{4pt}
+{\bf Secondary School Leaving Certificate (SSLC)} \hfill {2017 -- 2018} \\
+Government Higher Secondary School, Mughasl Anumanpalli, Erode \\
+\textbf{Percentage:} 84\%
+
+%----------------------------------------------------------------------------------------
+%	PROJECTS
+%----------------------------------------------------------------------------------------
+
+\section{Projects}
+
+\textbf{Smart Recipe Suggestion System}
+\begin{itemize}[leftmargin=1em, itemsep=3pt]
+    \item Developed a Smart Recipe Suggestion System using Django for backend and SQL for recipe data storage.
+    \item Implemented functionality where users input available ingredients, and the system suggests matching recipes using SQL filtering.
+    \item Designed a clean HTML-based frontend for user interaction and recipe display.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	SKILLS
+%----------------------------------------------------------------------------------------
+
+\section{Skills}
+\textbf{SQL }
+\begin{itemize}[leftmargin=1em, itemsep=3pt]
+  \item Demonstrated expertise in executing CRUD operations essential for effective database management.
+  \item Well versed in identifying and adressing the limitations of DML operation.
+  \item Strong understanding of Transaction Control Language (TCL) for handling database transactions.
+  \item Proficient in Data Control Language (DCL) for managing database security.
+  \item Proficient in writing SQL joins to handle data from multiple tables effectively.
+  \item Skilled in designing nested sub-queries to work with joins and other advanced SQL features.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	ACHIEVEMENTS
+%----------------------------------------------------------------------------------------
+
+\section{Achievements}
+\begin{itemize}[leftmargin=1em, itemsep=3pt]
+    \item Earned a Certificate of Completion for the "SQL for Beginners" course on Udemy, demonstrating foundational proficiency in SQL query writing, database design, and data manipulation.
+   
+\end{itemize}
+
+\end{document}
+s

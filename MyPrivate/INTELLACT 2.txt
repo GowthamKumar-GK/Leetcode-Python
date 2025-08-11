@@ -1,0 +1,392 @@
+INTELLACT QUESTIONS 
+
+1) Create and Insert Employee Table
+
+-- Create Employee table
+CREATE TABLE Employee (
+    EMP_ID INT PRIMARY KEY,
+    EMP_NAME VARCHAR(50),
+    AGE INT,
+    JOB VARCHAR(50),
+    EMP_SALARY INT,
+    EMP_LOCATION VARCHAR(50)
+);
+INSERT ALL
+  INTO Employee VALUES (2, 'Naman', 30, 'ANALYST', 35700, 'CHENNAI')
+  INTO Employee VALUES (3, 'Riya', 47, 'HR', 24000, 'PUNE')
+  INTO Employee VALUES (4, 'Raju', 36, 'HR', 31000, 'HYDERABAD')
+  INTO Employee VALUES (5, 'Anu', 27, 'ARCHITECT', 43000, 'HYDERABAD')
+  INTO Employee VALUES (6, 'Sham', 41, 'BA', 52000, 'BANGALORE')
+SELECT 1 FROM DUAL;
+OR
+
+SQL> INSERT INTO Employee VALUES (&EMP_ID,'&EMP_NAME',&AGE,'&JOB',&EMP_SALARY,'&EMP_LOCATION');
+Enter value for emp_id: 1.
+Enter value for emp_name: ARJUN
+Enter value for age: 23
+Enter value for job: MANAGER
+Enter value for emp_salary: 40000
+Enter value for emp_location: CHENNAI
+old   1: INSERT INTO Employee VALUES (&EMP_ID,'&EMP_NAME',&AGE,'&JOB',&EMP_SALARY,'&EMP_LOCATION')
+new   1: INSERT INTO Employee VALUES (1.,'ARJUN',23,'MANAGER',40000,'CHENNAI')
+
+1 row created.
+
+
+2)Update Job for Sham (age 41)
+
+UPDATE Employee
+SET JOB = 'Business Analyst'
+WHERE EMP_NAME = 'Sham' AND AGE = 41;
+
+
+3)Drop and Truncate Table
+
+-- Truncate table (removes all data but keeps table structure)
+TRUNCATE TABLE Employee;
+
+-- Drop table (completely removes table and its structure)
+DROP TABLE Employee;
+
+
+4) Delete Rows with Location 'CHENNAI'
+
+DELETE FROM Employee
+WHERE EMP_LOCATION = 'CHENNAI';
+
+
+## Question 5: Query EMPLOYEE table for specific job patterns
+
+```sql
+-- a. Whose JOB starts with A
+SELECT EMP_ID, EMP_NAME, JOB, EMP_SALARY
+FROM EMPLOYEE
+WHERE JOB LIKE 'A%';
+
+-- b. Whose JOB ends with R
+SELECT EMP_ID, EMP_NAME, JOB, EMP_SALARY
+FROM EMPLOYEE
+WHERE JOB LIKE '%R';
+```
+
+## Question 6: Comparison & Range Operators
+
+Comparison operators compare two values and return TRUE, FALSE, or NULL:
+- `=` (equal)
+- `!=` or `<>` (not equal)
+- `>` (greater than)
+- `<` (less than)
+- `>=` (greater than or equal)
+- `<=` (less than or equal)
+
+Range operators specify a range of values:
+- `BETWEEN ... AND ...` (inclusive range)
+- `NOT BETWEEN ... AND ...` (exclusive range)
+
+Example:
+```sql
+SELECT * FROM EMPLOYEE 
+WHERE AGE BETWEEN 25 AND 40;
+```
+
+## Question 7: Set Operators with Example
+
+Set operators combine results from multiple queries:
+- `UNION` (distinct rows from both queries)
+- `UNION ALL` (all rows from both queries)
+- `INTERSECT` (rows common to both queries)
+- `MINUS` (rows in first query but not in second)
+
+Example:
+```sql
+-- Employees from Chennai or Hyderabad
+SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_LOCATION = 'CHENNAI'
+UNION
+SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_LOCATION = 'HYDERABAD';
+```
+
+## Question 8: Aggregation Queries
+
+```sql
+-- a. Count of employees by marital status
+SELECT MARITAL_STATUS, COUNT(*) AS EMPLOYEE_COUNT
+FROM EMPLOYEE
+GROUP BY MARITAL_STATUS;
+
+-- b. Sum of salary for employees under 30
+SELECT SUM(EMP_SALARY) AS TOTAL_SALARY
+FROM EMPLOYEE
+WHERE AGE < 30;
+```
+
+## Question 9: Complex Queries
+
+```sql
+-- a. Employees with >30K salary, unmarried, from Chennai
+SELECT COUNT(*) AS EMPLOYEE_COUNT
+FROM EMPLOYEE
+WHERE EMP_SALARY > 30000
+AND MARITAL_STATUS = 'UN_MARRIED'
+AND EMP_LOCATION = 'CHENNAI';
+
+-- b. Total salary by location (only locations with >60K total)
+SELECT EMP_LOCATION, SUM(EMP_SALARY) AS TOTAL_SALARY
+FROM EMPLOYEE
+GROUP BY EMP_LOCATION
+HAVING SUM(EMP_SALARY) > 60000;
+
+
+
+# Oracle SQL*Plus Solutions
+
+## Question 10: Target Table with Result Column
+
+```sql
+-- Create source table (if needed)
+CREATE TABLE STUDENT_MARKS (
+    ROLL_NO NUMBER,
+    NAME VARCHAR2(50),
+    CLASS VARCHAR2(10),
+    MARKS NUMBER
+);
+
+-- Insert sample data
+INSERT INTO STUDENT_MARKS VALUES (1, 'WILLIAM', 'A', 36);
+INSERT INTO STUDENT_MARKS VALUES (2, 'TRAVIS', 'A', 31);
+INSERT INTO STUDENT_MARKS VALUES (3, 'BOLAND', 'A', 87);
+INSERT INTO STUDENT_MARKS VALUES (4, 'RASH', 'A', 78);
+INSERT INTO STUDENT_MARKS VALUES (5, 'SYLVIA', 'A', 91);
+
+-- Query to get target table with Result column
+SELECT 
+    ROLL_NO,
+    NAME,
+    CLASS,
+    MARKS,
+    CASE
+        WHEN MARKS > 80 THEN 'Great'
+        WHEN MARKS BETWEEN 50 AND 80 THEN 'Good'
+        WHEN MARKS < 50 THEN 'Poor'
+    END AS Result
+FROM STUDENT_MARKS;
+```
+
+## Question 11: Join Examples with Sample Tables
+
+First, let's create the sample tables:
+
+```sql
+-- Create tables T1 and T2
+CREATE TABLE T1 (ID NUMBER);
+CREATE TABLE T2 (ID NUMBER);
+
+-- Insert data into T1
+INSERT INTO T1 VALUES (1);
+INSERT INTO T1 VALUES (2);
+INSERT INTO T1 VALUES (4);
+INSERT INTO T1 VALUES (3);
+INSERT INTO T1 VALUES (4);
+INSERT INTO T1 VALUES (5);
+
+-- Insert data into T2
+INSERT INTO T2 VALUES (1);
+INSERT INTO T2 VALUES (4);
+INSERT INTO T2 VALUES (5);
+INSERT INTO T2 VALUES (6);
+INSERT INTO T2 VALUES (2);
+INSERT INTO T2 VALUES (7);
+```
+
+Now the join queries:
+
+### 1. INNER JOIN
+```sql
+SELECT T1.ID AS T1_ID, T2.ID AS T2_ID
+FROM T1
+INNER JOIN T2 ON T1.ID = T2.ID;
+```
+**Output:**
+```
+T1_ID    T2_ID
+-----    -----
+1        1
+2        2
+4        4
+4        4
+5        5
+```
+
+### 2. LEFT JOIN
+```sql
+SELECT T1.ID AS T1_ID, T2.ID AS T2_ID
+FROM T1
+LEFT JOIN T2 ON T1.ID = T2.ID;
+```
+**Output:**
+```
+T1_ID    T2_ID
+-----    -----
+1        1
+2        2
+4        4
+4        4
+3        NULL
+5        5
+```
+
+### 3. RIGHT JOIN
+```sql
+SELECT T1.ID AS T1_ID, T2.ID AS T2_ID
+FROM T1
+RIGHT JOIN T2 ON T1.ID = T2.ID;
+```
+**Output:**
+```
+T1_ID    T2_ID
+-----    -----
+1        1
+4        4
+5        5
+NULL     6
+2        2
+NULL     7
+```
+
+### 4. FULL OUTER JOIN
+```sql
+SELECT T1.ID AS T1_ID, T2.ID AS T2_ID
+FROM T1
+FULL OUTER JOIN T2 ON T1.ID = T2.ID;
+```
+**Output:**
+```
+T1_ID    T2_ID
+-----    -----
+1        1
+2        2
+4        4
+4        4
+3        NULL
+5        5
+NULL     6
+NULL     7
+
+# Oracle SQL*Plus Solutions
+
+## Question 12: Aggregate Functions
+```sql
+SELECT 
+    COUNT(*) AS Total_Employees,
+    SUM(EMP_SALARY) AS Total_Salary,
+    AVG(EMP_SALARY) AS Avg_Salary,
+    MIN(EMP_SALARY) AS Min_Salary,
+    MAX(EMP_SALARY) AS Max_Salary,
+    MEDIAN(EMP_SALARY) AS Median_Salary,
+    STDDEV(EMP_SALARY) AS Salary_StdDev,
+    VARIANCE(EMP_SALARY) AS Salary_Variance
+FROM EMPLOYEE;
+```
+
+## Question 13: Set Operators
+```sql
+-- Create sample tables
+CREATE TABLE T1 (ID NUMBER);
+CREATE TABLE T2 (ID NUMBER);
+
+-- Insert data
+INSERT INTO T1 VALUES (1); INSERT INTO T1 VALUES (2); 
+INSERT INTO T1 VALUES (4); INSERT INTO T1 VALUES (3); 
+INSERT INTO T1 VALUES (4); INSERT INTO T1 VALUES (6);
+
+INSERT INTO T2 VALUES (1); INSERT INTO T2 VALUES (4); 
+INSERT INTO T2 VALUES (5); INSERT INTO T2 VALUES (6); 
+INSERT INTO T2 VALUES (2); INSERT INTO T2 VALUES (7);
+
+-- Set operators
+SELECT ID FROM T1 UNION SELECT ID FROM T2;          -- All distinct values
+SELECT ID FROM T1 UNION ALL SELECT ID FROM T2;     -- All values with duplicates
+SELECT ID FROM T1 INTERSECT SELECT ID FROM T2;     -- Common values
+SELECT ID FROM T1 MINUS SELECT ID FROM T2;         -- In T1 but not in T2
+```
+
+## Question 14: Extract Year from Date
+```sql
+SELECT EXTRACT(YEAR FROM TO_DATE('9999-12-31', 'YYYY-MM-DD')) AS Year FROM DUAL;
+-- OR
+SELECT TO_CHAR(TO_DATE('9999-12-31', 'YYYY-MM-DD'), 'YYYY') AS Year FROM DUAL;
+```
+
+## Question 15: Concatenate First and Last Name
+```sql
+SELECT 
+    First_Name, 
+    Last_Name, 
+    First_Name || ' ' || Last_Name AS Full_Name 
+FROM EMPLOYEE;
+```
+
+## Question 16: Extract First Name from Full Name
+```sql
+SELECT 
+    Full_Name,
+    SUBSTR(Full_Name, 1, INSTR(Full_Name, ' ')-1) AS First_Name 
+FROM EMPLOYEE;
+```
+
+## Question 17: Multi-Row Functions
+**Definition:** Functions that operate on sets of rows to return single values (aggregate functions) or multiple values (analytic functions).
+
+**Types:**
+1. Aggregate functions (COUNT, SUM, AVG, etc.)
+2. Analytic functions (ROW_NUMBER, RANK, LEAD, LAG, etc.)
+3. GROUP BY clause functions
+4. Window functions
+
+## Question 18: Extract Domain from Email
+```sql
+SELECT 
+    SUBSTR(
+        'abc@sjp.co.uk', 
+        INSTR('abc@sjp.co.uk', '@')+1
+    ) AS Domain 
+FROM DUAL;
+```
+
+## Question 19: Delete, Truncate, Drop Syntax
+```sql
+-- DELETE (DML - can rollback)
+DELETE FROM table_name WHERE condition;
+
+-- TRUNCATE (DDL - faster, no rollback)
+TRUNCATE TABLE table_name;
+
+-- DROP (DDL - removes table completely)
+DROP TABLE table_name;
+```
+
+## Question 20: Subqueries
+**Subquery:** A query nested inside another query.
+```sql
+SELECT emp_name FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
+```
+
+**Correlated Subquery:** References columns from the outer query.
+```sql
+SELECT e.emp_name FROM employees e
+WHERE salary > (SELECT AVG(salary) FROM employees WHERE dept = e.dept);
+```
+
+**Example:**
+```sql
+-- Employees earning more than their department average
+SELECT e.emp_name, e.salary, e.dept
+FROM employees e
+WHERE e.salary > (
+    SELECT AVG(salary) 
+    FROM employees 
+    WHERE dept = e.dept
+);
+```
+
+
